@@ -1,18 +1,16 @@
 const { Given, When, Then } = require('@wdio/cucumber-framework');
-const { expect, $ } = require('@wdio/globals')
-
-Given(/^I am on the (\w+) page$/, async (page) => {
-    await browser.url(`https://the-internet.herokuapp.com/${page}`);
+const { expect, $ } = require('@wdio/globals');
+  
+Given(/^I am on the login page$/, async () => {
+	await browser.url('https://www.saucedemo.com/');
 });
 
-When(/^I login with (\w+) and (.+)$/, async (username, password) => {
-    await $('#username').setValue(username);
-    await $('#password').setValue(password);
-    await $('button[type="submit"]').click();
+When(/^I click on 'Login' button$/,  async () => {
+	(await $('#login-button')).click();
+    await browser.pause(2000);
 });
 
-Then(/^I should see a flash message saying (.*)$/, async (message) => {
-    await expect($('#flash')).toBeExisting();
-    await expect($('#flash')).toHaveTextContaining(message);
+Then(/^I should see 'Epic sadface: Username is required' error message$/, async () => {
+	const errorMessage = await $('//*[@id="login_button_container"]/div/form/div[3]/h3');
+    await expect(errorMessage).toHaveTextContaining('Epic sadface: Username is required');
 });
-

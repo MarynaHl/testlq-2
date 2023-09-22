@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "@wdio/cli": "^8.16.12",
+    "cucumber": "^6.0.7",
+    "webdriverio": "^8.16.12"
+  }
+}
